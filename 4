@@ -1,0 +1,34 @@
+from flask import Flask, request, jsonify
+
+app = Flask(__name__)
+
+# Dictionary to store active sessions
+active_sessions = {}
+
+@app.route('/initiate_video_call', methods=['POST'])
+def initiate_video_call():
+    # Receive offer from the frontend
+    offer = request.json['offer']
+    
+    # Create answer
+    # Your code to handle signaling and create answer
+    answer = {}  # Placeholder
+    
+    # Store offer and answer in active_sessions (for demonstration)
+    active_sessions[request.remote_addr] = {'offer': offer, 'answer': answer}
+    
+    return jsonify({'answer': answer})
+
+@app.route('/send_message', methods=['POST'])
+def send_message():
+    # Receive message from the frontend
+    message = request.json['message']
+    
+    # Placeholder code to echo back the message
+    # Your code to handle sending messages
+    print(f"Received message: {message}")
+    
+    return jsonify({'status': 'success'})
+
+if __name__ == '__main__':
+    app.run(debug=True)
